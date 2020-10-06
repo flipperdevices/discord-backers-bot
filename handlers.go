@@ -43,6 +43,11 @@ func handleBackerInfo(s *discordgo.Session, m *discordgo.MessageCreate, id int, 
 		return
 	}
 
+	if getDiscordIDByBackerID(id) != "" {
+		s.ChannelMessageSend(m.ChannelID, "I'm sorry, but this backer number is already bound to another Discord user.")
+		return
+	}
+
 	s.GuildMemberRoleAdd(cfg.GuildID, m.Author.ID, cfg.RoleID)
 	linkBackerIDAndDiscordID(id, m.Author.ID)
 	s.ChannelMessageSend(m.ChannelID, "Yay! I've found you in our backers list and your backer status has been confirmed.")

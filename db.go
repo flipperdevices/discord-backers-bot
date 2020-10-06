@@ -17,6 +17,10 @@ func getBackerIDByDiscordID(discordID string) int {
 	return id
 }
 
+func getDiscordIDByBackerID(backerID int) string {
+	return db.Get(ctx, formatDiscordIDByBackerIDKey(backerID)).Val()
+}
+
 func linkBackerIDAndDiscordID(backerID int, discordID string) {
 	db.Set(ctx, formatBackerIDByDiscordIDKey(discordID), backerID, 0)
 	db.Set(ctx, formatDiscordIDByBackerIDKey(backerID), discordID, 0)
